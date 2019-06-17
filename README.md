@@ -1,5 +1,4 @@
 # **UE4 Google Speech Kit**
----
 
 ![](pics/Icon128.png)
 
