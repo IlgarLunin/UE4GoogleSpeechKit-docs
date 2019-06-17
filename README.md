@@ -54,3 +54,7 @@ This also goes to `Engine.ini`.
 [SystemSettings]
 voice.SilenceDetectionThreshold=0.01
 ```
+
+# Platforms supported
+
+For now plugin tested only on **Windows** platform.
