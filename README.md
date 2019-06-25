@@ -22,7 +22,7 @@ Find out more in documentation for corresponding sections.
 
 # Speech synthesis
 
-You need to supply text to async node, as well as voice variant. As output you will get
+You need to supply text to async node, as well as voice variant, speech speed, and pitch value. As output you will get
 sound wave object which can be played by engine.
 
 ![](pics/googletts.png)
