@@ -14,7 +14,7 @@ Plugin was battle tested in several commercial simulator projects. It is small, 
 ![](pics/api_key.png)
 
 4) There are two ways how you can use your credentials in project.
-    
+
     * 4.1 By using environment variables. Create environment variable `GOOGLE_API_KEY` with created key as value.
 
     * 4.2 By assigning key directly in blueprints. This can be called anywhere.
@@ -30,11 +30,11 @@ sound wave object which can be played by engine.
 
 ![](pics/googletts.png)
 
-
 # Speech recognition
 
 Consists of two parts. First, we need to record voice from microphone. To do that, use **UMicrophoneCapture**
 actor component as shown below. Next, construct recognition parameters and pass them to
+
 **Google STT** async node.
 
 ![](pics/googlestt.png)
@@ -42,6 +42,11 @@ actor component as shown below. Next, construct recognition parameters and pass 
 Another way to perform recognition is to use **Google STT Variants** node. Which, instead of returning result with highest confidence, returns an array of variants.
 
 ![](pics/googlesttvariants.png)
+
+Probably you will need to send voice commands to you game, to increase recognition chances use `CompareStrings` node. Below call will return 0.666 value,
+so we can treat those strings equal since they are simmilar on 66%.
+
+![](pics/compare.png)
 
 # Important steps
 
@@ -58,6 +63,10 @@ This also goes to `Engine.ini`.
 [SystemSettings]
 voice.SilenceDetectionThreshold=0.01
 ```
+
+Or by executing consolecommand during runtime
+
+![](pics/silencenode.png)
 
 # Platforms supported
 
