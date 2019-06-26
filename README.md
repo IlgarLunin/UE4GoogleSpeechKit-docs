@@ -13,12 +13,16 @@ Plugin was battle tested in several commercial simulator projects. It is small, 
 
 ![](pics/api_key.png)
 
-4) Create environment variable `GOOGLE_API_KEY` with created key as value.
+4) There are two ways how you can use your credentials in project.
+    
+    * 4.1 By using environment variables. Create environment variable `GOOGLE_API_KEY` with created key as value.
 
-![](pics/googlespeechkeyenv.png)
+    * 4.2 By assigning key directly in blueprints. This can be called anywhere.
 
-Find out more in documentation for corresponding sections.
-* [Supported voices](https://cloud.google.com/text-to-speech/docs/voices) ([WaveNet](https://en.wikipedia.org/wiki/WaveNet) are the best)
+    ![](pics/apikeybp.png)
+
+    By default you need to set api key from nodes. To use environment variable, you need to set `Use Env Variable` to `true`.
+
 
 # Speech synthesis
 
@@ -26,6 +30,7 @@ You need to supply text to async node, as well as voice variant, speech speed, a
 sound wave object which can be played by engine.
 
 ![](pics/googletts.png)
+
 
 # Speech recognition
 
@@ -57,4 +62,11 @@ voice.SilenceDetectionThreshold=0.01
 
 # Platforms supported
 
-For now plugin tested only on **Windows** platform.
+**Windows** and **Mac**.
+
+# Links
+Find out more in documentation for corresponding sections.
+* [Supported TTS voices](https://cloud.google.com/text-to-speech/docs/voices) ([WaveNet](https://en.wikipedia.org/wiki/WaveNet) are the best)
+* [Speech synthesis config](https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize#audioconfig)
+* [Supported STT languages](https://cloud.google.com/speech-to-text/docs/languages)
+* [Speech recognition config](https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig)
