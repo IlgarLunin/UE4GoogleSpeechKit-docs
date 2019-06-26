@@ -23,10 +23,9 @@ Plugin was battle tested in several commercial simulator projects. It is small, 
 
     By default you need to set api key from nodes. To use environment variable, you need to set `Use Env Variable` to `true`.
 
-
 # Speech synthesis
 
-You need to supply text to async node, as well as voice variant, speech speed, and pitch value. As output you will get
+You need to supply text to async node, as well as voice variant, speech speed, pitch value and optionally audio effects. As output you will get
 sound wave object which can be played by engine.
 
 ![](pics/googletts.png)
