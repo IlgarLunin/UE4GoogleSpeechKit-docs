@@ -30,6 +30,14 @@ sound wave object which can be played by engine.
 
 ![](pics/googletts.png)
 
+## Bonus!
+
+Output raw samles can be used with oculus ovr lipsync in runtime.
+
+![](pics/ovrframesequence.png)
+
+Get node [here](https://github.com/IlgarLunin/UE4OVRLipSyncCookFrameSequence).
+
 # Speech recognition
 
 Consists of two parts. First, we need to record voice from microphone. To do that, use **UMicrophoneCapture**
