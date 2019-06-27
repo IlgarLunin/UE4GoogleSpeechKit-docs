@@ -23,6 +23,10 @@ Plugin was battle tested in several commercial simulator projects. It is small, 
 
     By default you need to set api key from nodes. To use environment variable, you need to set `Use Env Variable` to `true`.
 
+> **ADVICE**: Pay attention to security and encrypt your assets before packaging.
+
+![](pics/encryption.png)
+
 # Speech synthesis
 
 You need to supply text to async node, as well as voice variant, speech speed, pitch value and optionally audio effects. As output you will get
