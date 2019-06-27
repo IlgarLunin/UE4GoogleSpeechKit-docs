@@ -38,6 +38,10 @@ Output raw samles can be used with oculus ovr lipsync in runtime.
 
 Get node [here](https://github.com/IlgarLunin/UE4OVRLipSyncCookFrameSequence).
 
+Demo:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/B78aQly2wrI/0.jpg)](https://www.youtube.com/watch?v=B78aQly2wrI)
+
 # Speech recognition
 
 Consists of two parts. First, we need to record voice from microphone. To do that, use **UMicrophoneCapture**
