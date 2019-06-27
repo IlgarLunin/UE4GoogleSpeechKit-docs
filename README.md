@@ -44,7 +44,7 @@ Demo:
 
 # Speech recognition
 
-Consists of two parts. First, we need to record voice from microphone. To do that, use **UMicrophoneCapture**
+Consists of two parts. First, we need to record voice from microphone. To do that, use provided **MicrophoneCapture**
 actor component as shown below. Next, construct recognition parameters and pass them to
 
 **Google STT** async node.
