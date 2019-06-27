@@ -45,9 +45,7 @@ Demo:
 # Speech recognition
 
 Consists of two parts. First, we need to record voice from microphone. To do that, use provided **MicrophoneCapture**
-actor component as shown below. Next, construct recognition parameters and pass them to
-
-**Google STT** async node.
+actor component as shown below. Next, construct recognition parameters and pass them to **Google STT** async node.
 
 ![](pics/googlestt.png)
 
@@ -55,7 +53,7 @@ Another way to perform recognition is to use **Google STT Variants** node. Which
 
 ![](pics/googlesttvariants.png)
 
-Probably you will need to send voice commands to you game, to increase recognition chances use `CompareStrings` node. Below call will return 0.666 value,
+Probably you will need to send voice commands to you app, to increase recognition chances use `CompareStrings` node. Below call will return 0.666 value,
 so we can treat those strings equal since they are simmilar on 66%.
 
 ![](pics/compare.png)
