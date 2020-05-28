@@ -77,8 +77,12 @@ This also goes to `Engine.ini`.
 [SystemSettings]
 voice.SilenceDetectionThreshold=0.01
 ```
+Starting from Engine version 4.25 also put 
+```
+voice.MicNoiseGateThreshold=0.01
+```
 
-Or by executing consolecommand during runtime
+Or by executing console command during runtime
 
 ![](pics/silencenode.png)
 
