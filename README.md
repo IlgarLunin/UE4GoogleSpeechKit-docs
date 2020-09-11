@@ -98,7 +98,7 @@ To find available settings type `voice.` in editor console, and autocompletion w
 
 ![](pics/voicesettings.png)
 
-Or by executing console command during runtime
+Console variables can be modified in runtime like this
 
 ![](pics/silencenode.png)
 
