@@ -77,14 +77,37 @@ This also goes to `Engine.ini`.
 [SystemSettings]
 voice.SilenceDetectionThreshold=0.01
 ```
-Starting from Engine version 4.25 also put 
+Starting from Engine version 4.25 also put
 ```
 voice.MicNoiseGateThreshold=0.01
 ```
 
+Another voice related variables worth playing with
+```bash
+voice.MicNoiseGateThreshold
+voice.MicInputGain
+voice.MicStereoBias
+voice.MicNoiseAttackTime
+voice.MicNoiseReleaseTime
+voice.MicStereoBias
+voice.SilenceDetectionAttackTime
+voice.SilenceDetectionReleaseTime
+```
+
+To find available settings type `voice.` in editor console, and autocompletion widget will pop up.
+
+![](pics/voicesettings.png)
+
 Or by executing console command during runtime
 
 ![](pics/silencenode.png)
+
+To debug your microphone input you can convert output sound buffer to
+unreal sound wave and play it.
+
+![](pics/buffertosound.png)
+
+Above values may differ depending on actual microphone characteristics.
 
 # Platforms supported
 
