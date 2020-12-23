@@ -64,14 +64,14 @@ so we can treat those strings equal since they are simmilar on 66%.
 
 # Important steps
 
-To make microphone work, you need to add following lines to `Engine.ini` of the project.
+To make microphone work, you need to add following lines to `DefaultEngine.ini` of the project.
 ```
 [Voice]
 bEnabled=true
 ```
 
 To not loose pauses in between words, you probably want to check silence detection treshold `voice.SilenceDetectionThreshold`, value `0.01` is good.
-This also goes to `Engine.ini`.
+This also goes to `DefaultEngine.ini`.
 
 ```
 [SystemSettings]
