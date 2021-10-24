@@ -113,6 +113,26 @@ Above values may differ depending on actual microphone characteristics.
 
 **Windows** and **Mac**.
 
+# Migration guide
+<details>
+<summary>Version 3.0</summary>
+
+`EGoogleTTSLanguage` was removed. You need to pass [voice name](https://cloud.google.com/text-to-speech/docs/voices) as string (**Voice name** column).
+
+![new_language_pin](pics/new_language_pin.png)
+
+> **WARNING**: Since synthesys parameters has changed, TTS cache is no longer valid! Make sure you remove TTS cache if exists. **Editor/Game can freeze** if old cache wll be loaded. So make sure to remove `PROJECT_ROOT/Saved/GoogleTTSCache` folder. Or invoke `WipeTTSCache` node before GoogleTTS node is executed!
+
+![](pics/wipe_cache.png)
+
+![](pics/tts_cache_folder.png)
+
+The reason for this is that the number of languages has exceeded 256, and we can't put this amount into 8 bit enums (This is Unreal's limitation)
+
+
+
+</details>
+
 # Links
 Find out more in documentation for corresponding sections.
 * [Supported TTS voices](https://cloud.google.com/text-to-speech/docs/voices) ([WaveNet](https://en.wikipedia.org/wiki/WaveNet) are the best)
