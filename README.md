@@ -53,6 +53,10 @@ actor component as shown below. Next, construct recognition parameters and pass 
 
 ![](pics/googlestt.png)
 
+Note that you can pass microphone name to microphone capture component. To get list of available microphones, use following setup
+
+![](pics/enumerate_microphones.png)
+
 Another way to perform recognition is to use **Google STT Variants** node. Which, instead of returning result with highest confidence, returns an array of variants.
 
 ![](pics/googlesttvariants.png)
