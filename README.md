@@ -6,65 +6,17 @@ This is UE4 wrapper for Google's [Cloud Text-to-Speech](https://cloud.google.com
 
 Plugin was battle tested in several commercial simulator projects. It is small, lean and simple to use.
 
-# Preparation
-1) Go to [google cloud](https://console.cloud.google.com) and create payment account.
-2) Enable [Cloud Speech-to-Text API](https://console.cloud.google.com/apis/library/speech.googleapis.com) and [Cloud Text-to-Speech API](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com).
-3) Create credentials to access your enabled APIs. See instructions [here](https://cloud.google.com/docs/authentication).
-
-![](pics/api_key.png)
-
-4) There are two ways how you can use your credentials in project.
-
-    * 4.1 By using environment variables. Create environment variable `GOOGLE_API_KEY` with created key as value.
-
-    * 4.2 By assigning key directly in blueprints. This can be called anywhere.
-
-    ![](pics/apikeybp.png)
-
-    By default you need to set api key from nodes. To use environment variable, you need to set `Use Env Variable` to `true`.
-
-> **ADVICE**: Pay attention to security and encrypt your assets before packaging.
-
-![](pics/encryption.png)
-
-# Speech synthesis
-
-You need to supply text to async node, as well as voice variant, speech speed, pitch value and optionally audio effects. As output you will get
-sound wave object which can be played by engine.
-
-![](pics/googletts.png)
-
-## Bonus!
-
-Output raw samles can be used with oculus ovr lipsync in runtime.
-
-![](pics/ovrframesequence.png)
-
-Get node [here](https://github.com/IlgarLunin/UE4OVRLipSyncCookFrameSequence).
-
-Demo:
-
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/B78aQly2wrI/0.jpg)](https://www.youtube.com/watch?v=B78aQly2wrI)
-
-# Speech recognition
-
-Consists of two parts. First, we need to record voice from microphone. To do that, use provided **MicrophoneCapture**
-actor component as shown below. Next, construct recognition parameters and pass them to **Google STT** async node.
-
-![](pics/googlestt.png)
-
-Note that you can pass microphone name to microphone capture component. To get list of available microphones, use following setup
-
-![](pics/enumerate_microphones.png)
-
-Another way to perform recognition is to use **Google STT Variants** node. Which, instead of returning result with highest confidence, returns an array of variants.
-
-![](pics/googlesttvariants.png)
-
-Probably you will need to send voice commands to you app, to increase recognition chances use `CompareStrings` node. Below call will return 0.666 value,
-so we can treat those strings equal since they are simmilar on 66%.
-
-![](pics/compare.png)
+# Table of contents
+1. [Important steps](#important-steps)
+1. [Preparation](#preparation)
+1. [Speech synthesis](#speech-synthesis)
+1. [Speech recognition](#speech-recognition)
+    1. [Voice capture](#voice-capture)
+    1. [Listing available capture devices](#listing-available-capture-devices)
+1. [Utilities](#utilities)
+1. [Supported platforms](#supported-platforms)
+1. [Migration guide](#migration-guide)
+1. [Useful links](#links)
 
 # Important steps
 
@@ -113,7 +65,120 @@ unreal sound wave and play it.
 
 Above values may differ depending on actual microphone characteristics.
 
-# Platforms supported
+# Preparation
+1) Go to [google cloud](https://console.cloud.google.com) and create payment account.
+2) Enable [Cloud Speech-to-Text API](https://console.cloud.google.com/apis/library/speech.googleapis.com) and [Cloud Text-to-Speech API](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com).
+3) Create credentials to access your enabled APIs. See instructions [here](https://cloud.google.com/docs/authentication).
+
+![](pics/api_key.png)
+
+4) There are two ways how you can use your credentials in project.
+
+    * 4.1 By using environment variables. Create environment variable `GOOGLE_API_KEY` with created key as value.
+
+    * 4.2 By assigning key directly in blueprints. This can be called anywhere.
+
+    ![](pics/apikeybp.png)
+
+    By default you need to set api key from nodes. To use environment variable, you need to set `Use Env Variable` to `true`.
+
+> **ADVICE**: Pay attention to security and encrypt your assets before packaging.
+
+![](pics/encryption.png)
+
+# Speech synthesis
+
+You need to supply text to async node, as well as voice variant, speech speed, pitch value and optionally audio effects. As output you will get
+sound wave object which can be played by engine.
+
+![](pics/googletts.png)
+
+<!-- ## Bonus!
+
+Output raw samles can be used with oculus ovr lipsync in runtime.
+
+![](pics/ovrframesequence.png)
+
+Get node [here](https://github.com/IlgarLunin/UE4OVRLipSyncCookFrameSequence).
+
+Demo:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/B78aQly2wrI/0.jpg)](https://www.youtube.com/watch?v=B78aQly2wrI) -->
+
+# Speech recognition
+
+Consists of two parts. Voice capture, and sending request. There are two ways how you can capture your voice, depending on your needs.
+
+<!-- WINDOWS -->
+<details>
+  <summary>Windows only (deprecated)</summary>
+  
+
+Use provided **MicrophoneCapture** actor component as shown below. Next, construct recognition parameters and pass them to **Google STT** async node.
+
+![](pics/googlestt.png)
+
+</details>
+
+---
+
+<!-- MAC -->
+<details>
+  <summary>Windows and Mac (use this method)</summary>
+
+1. First, we need to give our project microphone access.
+    1. In Xcode, select you project
+    1. Go to `Info` tab
+    1. Expand `Custom macOS Application Target Properties` section
+    1. Hit `+`, and add `Privacy - Microphone Usage Description` string key, set any value you want, for example "GoogleSpeechKitMicAccess" 
+    ![](pics/microphone_access_xcode.png)
+
+1. Create SoundMix.
+    1. Right click in content browser - `Sounds > Mix > Sound Soundmix`
+    1. Open it, and set output value to -96.0
+    ![](pics/sound_mix.png)
+
+1. Create sound class
+    1. Right click in content browser - `Sounds > Classes > Sound Class`
+    1. Open it, and set our submix that we created in previous step as sound class default submix
+
+1. Make sure Audio Capture plugin is enabled
+    ![](pics/audio_capture_plugin.png)
+1. Go to your actor, and add AudioCapture component in components tab
+1. Disable "Auto Activate" option on AudioCapture
+1. Set our sound class to AudioCapture
+    ![](pics/audio_capture_sound_class.png)
+
+1. Now we can drop some nodes. In order to start and stop recording, we use `Activate` and `Deactivate` nodes with previously added AudioCapture component as a target. When audio capture is activated, we can start recording output from our submix
+1. When audio capture is deactivated, we finish recording output to `Wav File`! **This is important**! Give your wav file a name (e.g. "stt_sample"), `Path` can be absolute, or relative (to the /Saved/BouncedWavFiles folder)
+![](pics/start_stop_recording_set_submix.png)
+1. Then, after small delay, we can read saved file back as byte samples, ready to be fed to `Google STT` node
+![](pics/read_back.png)
+
+</details>
+
+---
+
+
+There is another STT node - **Google STT Variants** node. Which, instead of returning result with highest confidence, returns an array of variants.
+
+![](pics/googlesttvariants.png)
+
+# Utilities
+## Percentage based string comparison (Fuzzy matching)
+
+Probably, you will need to process recognised voice in your app, to increase recognition chances use `CompareStrings` node. Below call will return 0.666 value,
+so we can treat those strings equal since they are simmilar on 66%. Utilizes [Levenstein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm
+
+![](pics/compare.png)
+
+## Listing available capture devices
+
+You can pass microphone name to microphone capture component. To get list of available microphones, use following setup
+
+![](pics/enumerate_microphones.png)
+
+# Supported platforms
 
 **Windows** and **Mac**.
 
