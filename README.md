@@ -7,8 +7,8 @@ This is UE4 wrapper for Google's [Cloud Text-to-Speech](https://cloud.google.com
 Plugin was battle tested in several commercial simulator projects. It is small, lean and simple to use.
 
 # Table of contents
-1. [Important steps](#important-steps)
-1. [Preparation](#preparation)
+1. [Engine preparation](#engine-preparation)
+1. [Cloud preparation](#cloud-preparation)
 1. [Speech synthesis](#speech-synthesis)
 1. [Speech recognition](#speech-recognition)
     1. [Voice capture](#voice-capture)
@@ -18,7 +18,7 @@ Plugin was battle tested in several commercial simulator projects. It is small, 
 1. [Migration guide](#migration-guide)
 1. [Useful links](#links)
 
-# Important steps
+# Engine preparation
 
 To make microphone work, you need to add following lines to `DefaultEngine.ini` of the project.
 ```
@@ -65,7 +65,7 @@ unreal sound wave and play it.
 
 Above values may differ depending on actual microphone characteristics.
 
-# Preparation
+# Cloud preparation
 1) Go to [google cloud](https://console.cloud.google.com) and create payment account.
 2) Enable [Cloud Speech-to-Text API](https://console.cloud.google.com/apis/library/speech.googleapis.com) and [Cloud Text-to-Speech API](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com).
 3) Create credentials to access your enabled APIs. See instructions [here](https://cloud.google.com/docs/authentication).
