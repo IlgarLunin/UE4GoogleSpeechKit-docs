@@ -149,11 +149,15 @@ Use provided **MicrophoneCapture** actor component as shown below. Next, constru
 1. Set our sound class to AudioCapture
     ![](pics/audio_capture_sound_class.png)
 
-1. Now we can drop some nodes. In order to start and stop recording, we use `Activate` and `Deactivate` nodes with previously added AudioCapture component as a target. When audio capture is activated, we can start recording output from our submix
+1. Now we can drop some nodes. In order to start and stop recording, we use `Activate` and `Deactivate` nodes with previously added AudioCapture component as a target. When audio capture is activated, we can start recording output to our submix
 1. When audio capture is deactivated, we finish recording output to `Wav File`! **This is important**! Give your wav file a name (e.g. "stt_sample"), `Path` can be absolute, or relative (to the /Saved/BouncedWavFiles folder)
 ![](pics/start_stop_recording_set_submix.png)
 1. Then, after small delay, we can read saved file back as byte samples, ready to be fed to `Google STT` node
 ![](pics/read_back.png)
+
+Here is the whole setup
+
+![](pics/setup_all.png)
 
 </details>
 
