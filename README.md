@@ -7,16 +7,24 @@ This is UE4 wrapper for Google's [Cloud Text-to-Speech](https://cloud.google.com
 Plugin was battle tested in several commercial simulator projects. It is small, lean and simple to use.
 
 # Table of contents
-1. [Engine preparation](#engine-preparation)
-1. [Cloud preparation](#cloud-preparation)
-1. [Speech synthesis](#speech-synthesis)
-1. [Speech recognition](#speech-recognition)
-    1. [Voice capture](#voice-capture)
-    1. [Listing available capture devices](#listing-available-capture-devices)
-1. [Utilities](#utilities)
-1. [Supported platforms](#supported-platforms)
-1. [Migration guide](#migration-guide)
-1. [Useful links](#links)
+- [**UE4 Google Speech Kit**](#ue4-google-speech-kit)
+- [Table of contents](#table-of-contents)
+- [Engine preparation](#engine-preparation)
+- [Cloud preparation](#cloud-preparation)
+- [Speech synthesis](#speech-synthesis)
+- [Speech recognition](#speech-recognition)
+  - [Grant permissions](#grant-permissions)
+    - [Windows](#windows)
+    - [Mac](#mac)
+    - [Android](#android)
+  - [Voice capture and speech recognition](#voice-capture-and-speech-recognition)
+- [Utilities](#utilities)
+  - [Percentage based string comparison (Fuzzy matching)](#percentage-based-string-comparison-fuzzy-matching)
+  - [Listing available capture devices](#listing-available-capture-devices)
+- [Supported platforms](#supported-platforms)
+- [Migration guide](#migration-guide)
+  - [Version 3.0](#version-30)
+- [Links](#links)
 
 # Engine preparation
 
@@ -109,9 +117,30 @@ Demo:
 
 Consists of two parts. Voice capture, and sending request. There are two ways how you can capture your voice, depending on your needs.
 
+## Grant permissions
+
+### Windows
+No actions needed
+### Mac
+1. In Xcode, select you project
+1. Go to `Info` tab
+1. Expand `Custom macOS Application Target Properties` section
+1. Hit `+`, and add `Privacy - Microphone Usage Description` string key, set any value you want, for example "GoogleSpeechKitMicAccess" 
+![](pics/microphone_access_xcode.png)
+### Android
+Call this somewhere on begin play
+1. Give [microphone access](https://blueprintue.com/blueprint/v-3i68vw/) (**android.permission.RECORD_AUDIO**)
+ ![](pics/mic_access_android.png)
+1. Give [disk read access](https://blueprintue.com/blueprint/myo1kxkf/) (**android.permission.READ_EXTERNAL_STORAGE**)
+ ![](pics/disk_read_access_android.png)
+1. Give [disk write access](https://blueprintue.com/blueprint/32f-40w8/)  (**android.permission.WRITE_EXTERNAL_STORAGE**)
+ ![](pics/disk_write_access_android.png)
+
+## Voice capture and speech recognition
+
 <!-- WINDOWS -->
 <details>
-  <summary>Windows only (deprecated)</summary>
+  <summary>Windows only method (deprecated)</summary>
   
 
 Use provided **MicrophoneCapture** actor component as shown below. Next, construct recognition parameters and pass them to **Google STT** async node.
@@ -124,35 +153,28 @@ Use provided **MicrophoneCapture** actor component as shown below. Next, constru
 
 <!-- MAC -->
 <details>
-  <summary>Windows and Mac (use this method)</summary>
-
-1. First, we need to give our project microphone access.
-    1. In Xcode, select you project
-    1. Go to `Info` tab
-    1. Expand `Custom macOS Application Target Properties` section
-    1. Hit `+`, and add `Privacy - Microphone Usage Description` string key, set any value you want, for example "GoogleSpeechKitMicAccess" 
-    ![](pics/microphone_access_xcode.png)
+  <summary>Cross platform method (use this instead)</summary>   
 
 1. Create SoundMix.
     1. Right click in content browser - `Sounds > Mix > Sound Soundmix`
-    1. Open it, and set output value to -96.0
+    2. Open it, and set output value to -96.0
     ![](pics/sound_mix.png)
 
-1. Create sound class
+2. Create sound class
     1. Right click in content browser - `Sounds > Classes > Sound Class`
-    1. Open it, and set our submix that we created in previous step as sound class default submix
+    2. Open it, and set our submix that we created in previous step as sound class default submix
 
-1. Make sure Audio Capture plugin is enabled
+3. Make sure Audio Capture plugin is enabled
     ![](pics/audio_capture_plugin.png)
-1. Go to your actor, and add AudioCapture component in components tab
-1. Disable "Auto Activate" option on AudioCapture
-1. Set our sound class to AudioCapture
+4. Go to your actor, and add AudioCapture component in components tab
+5. Disable "Auto Activate" option on AudioCapture
+6. Set our sound class to AudioCapture
     ![](pics/audio_capture_sound_class.png)
 
-1. Now we can drop some nodes. In order to start and stop recording, we use `Activate` and `Deactivate` nodes with previously added AudioCapture component as a target. When audio capture is activated, we can start recording output to our submix
-1. When audio capture is deactivated, we finish recording output to `Wav File`! **This is important**! Give your wav file a name (e.g. "stt_sample"), `Path` can be absolute, or relative (to the /Saved/BouncedWavFiles folder)
+7. Now we can drop some nodes. In order to start and stop recording, we use `Activate` and `Deactivate` nodes with previously added AudioCapture component as a target. When audio capture is activated, we can start recording output to our submix
+8. When audio capture is deactivated, we finish recording output to `Wav File`! **This is important**! Give your wav file a name (e.g. "stt_sample"), `Path` can be absolute, or relative (to the /Saved/BouncedWavFiles folder)
 ![](pics/start_stop_recording_set_submix.png)
-1. Then, after small delay, we can read saved file back as byte samples, ready to be fed to `Google STT` node
+1. Then, after small delay, we can read saved file back as byte samples, ready to be fed to `Google STT` node. Delay is needed since "Finish Recording Output" node writes sound to disk, file write operation takes some time, if we will proceed immediately, ReadWaveFile node will fail
 ![](pics/read_back.png)
 
 Here is the whole setup
@@ -184,11 +206,11 @@ You can pass microphone name to microphone capture component. To get list of ava
 
 # Supported platforms
 
-**Windows** and **Mac**.
+**Windows**, **Mac** and **Android**.
 
 # Migration guide
-<details>
-<summary>Version 3.0</summary>
+
+## Version 3.0
 
 `EGoogleTTSLanguage` was removed. You need to pass [voice name](https://cloud.google.com/text-to-speech/docs/voices) as string (**Voice name** column).
 
@@ -202,12 +224,7 @@ You can pass microphone name to microphone capture component. To get list of ava
 
 The reason for this is that the number of languages has exceeded 256, and we can't put this amount into 8 bit enums (This is Unreal's limitation)
 
-
-
-</details>
-
 # Links
-Find out more in documentation for corresponding sections.
 * [Supported TTS voices](https://cloud.google.com/text-to-speech/docs/voices) ([WaveNet](https://en.wikipedia.org/wiki/WaveNet) are the best)
 * [Speech synthesis config](https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize#audioconfig)
 * [Supported STT languages](https://cloud.google.com/speech-to-text/docs/languages)
