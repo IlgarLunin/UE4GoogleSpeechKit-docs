@@ -152,8 +152,7 @@ Use provided **MicrophoneCapture** actor component as shown below. Next, constru
 ---
 
 <!-- MAC -->
-<details>
-  <summary>Cross platform method (use this instead)</summary>   
+### Cross platform method (use this instead)
 
 1. Create SoundMix.
     1. Right click in content browser - `Sounds > Mix > Sound Soundmix`
@@ -180,8 +179,6 @@ Use provided **MicrophoneCapture** actor component as shown below. Next, constru
 Here is the whole setup
 
 ![](pics/setup_all.png)
-
-</details>
 
 ---
 
