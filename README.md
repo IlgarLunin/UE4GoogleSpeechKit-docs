@@ -97,7 +97,7 @@ Above values may differ depending on actual microphone characteristics.
 # Speech synthesis
 
 You need to supply text to async node, as well as voice variant, speech speed, pitch value and optionally audio effects. As output you will get
-sound wave object which can be played by engine.
+audio buffer which you can import using audio importer.
 
 ![](pics/googletts.png)
 
